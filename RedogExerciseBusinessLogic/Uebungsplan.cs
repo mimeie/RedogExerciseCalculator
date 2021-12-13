@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace RedogExerciseBusinessLogic
 {
-    public static class Class1
+    public class Uebungsplan
     {
-        public static string getTestresult()
-        {
-            return "hallo";
-        }
-    }
+        public List<Uebungsrunde> Uebungsrunde;
+}
 }

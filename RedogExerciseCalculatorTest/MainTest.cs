@@ -12,9 +12,11 @@ namespace RedogExerciseCalculatorTest
         public void TestMethod1()
         {
             ExerciseCalculator ec = new ExerciseCalculator();
-            foreach (string dog in ec.Execute())
+            ec.Execute();
+
+            foreach (Uebungsrunde hf in ec.uebungsplan.Uebungsrunde)
             {
-                Console.WriteLine(dog);
+                Console.WriteLine(hf.Hundefuehrer.Name);
             }
         }
     }
