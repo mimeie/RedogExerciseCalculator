@@ -19,6 +19,10 @@ namespace RedogExerciseCalculator
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        Excel.Window window;
+        Excel.Worksheet konfiguration;
+        Excel.Worksheet uebung;
+
         private void Redog_Load(object sender, RibbonUIEventArgs e)
         {
 
@@ -26,8 +30,8 @@ namespace RedogExerciseCalculator
 
         private void Initialize_Click(object sender, RibbonControlEventArgs e)
         {
-            Excel.Window window = e.Control.Context;            
-            Excel.Worksheet konfiguration;
+            window = e.Control.Context;          
+           
 
             
             //Konfig sheet anlegen
@@ -56,7 +60,66 @@ namespace RedogExerciseCalculator
 
 
 
+            //Standardinformationen abfüllen
+            Excel.Range range;
+            int i = 1;
 
+            range  = konfiguration.get_Range("A1");
+            range.Value2 = "Basis-Einstellungen:";
+            range.Font.Bold = true;
+
+            i++;
+            range = konfiguration.get_Range("A" + i.ToString());
+            range.Value2 = "Anzahl Figuranten";
+            range = konfiguration.get_Range("B" + i.ToString());
+            range.Value2 = "1";
+
+
+            //Teilnehmer/Hundeführer abfüllen
+            i = 10;           
+            range = konfiguration.get_Range("A" + i.ToString());
+            range.Value2 = "Teilnehmer";
+            range.Font.Bold = true;
+            range = konfiguration.get_Range("B" + i.ToString());
+            range.Value2 = "mit Hund";
+            range.Font.Bold = true;
+
+
+            i++;
+            range = konfiguration.get_Range("A" + i.ToString());
+            range.Value2 = "Michael";
+            range = konfiguration.get_Range("B" + i.ToString());
+            range.Value2 = "x";
+
+            i++;
+            range = konfiguration.get_Range("A" + i.ToString());
+            range.Value2 = "Alain";
+            range = konfiguration.get_Range("B" + i.ToString());
+            range.Value2 = "x";
+
+            i++;
+            range = konfiguration.get_Range("A" + i.ToString());
+            range.Value2 = "Tom";
+            range = konfiguration.get_Range("B" + i.ToString());
+            range.Value2 = "";
+
+            i++;
+            range = konfiguration.get_Range("A" + i.ToString());
+            range.Value2 = "Sarah";
+            range = konfiguration.get_Range("B" + i.ToString());
+            range.Value2 = "x";
+
+            i++;
+            range = konfiguration.get_Range("A" + i.ToString());
+            range.Value2 = "Clemens";
+            range = konfiguration.get_Range("B" + i.ToString());
+            range.Value2 = "x";
+
+            i++;
+            range = konfiguration.get_Range("A" + i.ToString());
+            range.Value2 = "Duri";
+            range = konfiguration.get_Range("B" + i.ToString());
+            range.Value2 = "x";
         }
 
         //private void DisplayActiveSheetName()
@@ -77,28 +140,56 @@ namespace RedogExerciseCalculator
 
 
 
+            
+            window = e.Control.Context;
+
+            //überflüssige Tabelle löschen
+            try
+            {
+                var uebungsplan = (Excel.Worksheet)window.Application.Worksheets["Übungsplan"].Delete();
+            }
+            catch (Exception ex)
+            {
+                //worksheet neu eröffnen
+                logger.Warn(ex, $"Problem beim Berechnen, übungsplan schon gelöscht");
+            }
+
+            //übungs sheet anlegen
+            try
+            {
+                uebung = (Excel.Worksheet)window.Application.Worksheets["Übungsplan"];
+            }
+            catch (Exception ex)
+            {
+                //worksheet neu eröffnen
+                logger.Warn(ex, $"Problem beim Berechnen, vermutlich existiert Sheet noch nicht.");
+                uebung = (Excel.Worksheet)window.Application.Worksheets.Add();
+                uebung.Name = "Übungsplan";
+            }
+
             ExerciseCalculator ec = new ExerciseCalculator();
 
-            Excel.Window window = e.Control.Context;            
-            Excel.Worksheet activeWorksheet = ((Excel.Worksheet)window.Application.ActiveSheet);
 
-            foreach (string dog in ec.Execute())
-            {
-                
-                Excel.Range firstRow = activeWorksheet.get_Range("A1");
-                firstRow.EntireRow.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
-                Excel.Range newFirstRow = activeWorksheet.get_Range("A1");
-                newFirstRow.Value2 = dog;
 
-            }
+            //Excel.Worksheet activeWorksheet = ((Excel.Worksheet)window.Application.ActiveSheet);
 
-            int i = 0;
-            foreach (string dog in ec.Execute())
-            {
-                i++;
-                Excel.Range firstRow2 = activeWorksheet.get_Range("C" + i.ToString());
-                firstRow2.Value2 = dog;                             
-            }
+            //foreach (string dog in ec.Execute())
+            //{
+
+            //    Excel.Range firstRow = activeWorksheet.get_Range("A1");
+            //    firstRow.EntireRow.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
+            //    Excel.Range newFirstRow = activeWorksheet.get_Range("A1");
+            //    newFirstRow.Value2 = dog;
+
+            //}
+
+            //int i = 0;
+            //foreach (string dog in ec.Execute())
+            //{
+            //    i++;
+            //    Excel.Range firstRow2 = activeWorksheet.get_Range("C" + i.ToString());
+            //    firstRow2.Value2 = dog;                             
+            //}
         }
     }
 }
