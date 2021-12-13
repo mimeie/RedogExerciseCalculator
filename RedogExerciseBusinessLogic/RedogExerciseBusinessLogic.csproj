@@ -45,7 +45,6 @@
     <Compile Include="ExerciseCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Teilnehmer.cs" />
-    <Compile Include="Uebungsplan.cs" />
     <Compile Include="Uebungsrunde.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

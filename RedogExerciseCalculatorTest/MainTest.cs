@@ -14,7 +14,7 @@ namespace RedogExerciseCalculatorTest
             ExerciseCalculator ec = new ExerciseCalculator();
             ec.Execute();
 
-            foreach (Uebungsrunde hf in ec.uebungsplan.Uebungsrunde)
+            foreach (Uebungsrunde hf in ec.uebungsplan)
             {
                 Console.WriteLine(hf.Hundefuehrer.Name);
             }

@@ -10,13 +10,13 @@ namespace RedogExerciseBusinessLogic
     {
         public List<Teilnehmer> teilnehmerList;
         public CalculatorSettings calcSetting;
-        public Uebungsplan uebungsplan;
+        public List<Uebungsrunde> uebungsplan;
 
         public ExerciseCalculator()
         {
             calcSetting = new CalculatorSettings();
             teilnehmerList = new List<Teilnehmer>();
-            uebungsplan = new Uebungsplan();
+            uebungsplan = new List<Uebungsrunde>();
 
 
             //Daten im Moment hier manuell abfüllen
@@ -51,7 +51,7 @@ namespace RedogExerciseBusinessLogic
                 runde.Order = i;
                 runde.Hundefuehrer = tn;
 
-                uebungsplan.Uebungsrunde.Add(runde);
+                uebungsplan.Add(runde);
             }
 
                 
