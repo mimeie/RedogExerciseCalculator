@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using RedogExerciseBusinessLogic;
 
 
 namespace RedogExerciseCalculator
@@ -17,7 +18,8 @@ namespace RedogExerciseCalculator
 
         private void button1_Click(object sender, RibbonControlEventArgs e)
         {
-           MessageBox.Show("hallo");
+            
+           MessageBox.Show(Class1.getTestresult());
         }
     }
 }

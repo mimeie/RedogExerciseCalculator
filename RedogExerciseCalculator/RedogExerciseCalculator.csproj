@@ -197,6 +197,12 @@
     </Compile>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RedogExerciseBusinessLogic\RedogExerciseBusinessLogic.csproj">
+      <Project>{3f0f463f-a037-4a2f-9c9d-fb1e7536a2cd}</Project>
+      <Name>RedogExerciseBusinessLogic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
