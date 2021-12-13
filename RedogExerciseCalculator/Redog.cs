@@ -197,5 +197,11 @@ namespace RedogExerciseCalculator
             //    firstRow2.Value2 = dog;                             
             //}
         }
+
+        private void Info_Click(object sender, RibbonControlEventArgs e)
+        {
+            Info info = new Info();
+            info.ShowDialog();
+        }
     }
 }

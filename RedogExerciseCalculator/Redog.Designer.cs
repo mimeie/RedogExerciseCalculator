@@ -38,6 +38,7 @@
             this.group1 = this.Factory.CreateRibbonGroup();
             this.Initialize = this.Factory.CreateRibbonButton();
             this.Calculate = this.Factory.CreateRibbonButton();
+            this.Info = this.Factory.CreateRibbonButton();
             this.tab1.SuspendLayout();
             this.group1.SuspendLayout();
             this.SuspendLayout();
@@ -54,6 +55,7 @@
             // 
             this.group1.Items.Add(this.Initialize);
             this.group1.Items.Add(this.Calculate);
+            this.group1.Items.Add(this.Info);
             this.group1.Label = "Redog Übungen";
             this.group1.Name = "group1";
             // 
@@ -72,6 +74,14 @@
             this.Calculate.Name = "Calculate";
             this.Calculate.ShowImage = true;
             this.Calculate.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Calculate_Click);
+            // 
+            // Info
+            // 
+            this.Info.Image = global::RedogExerciseCalculator.Properties.Resources.Info;
+            this.Info.Label = "Info";
+            this.Info.Name = "Info";
+            this.Info.ShowImage = true;
+            this.Info.Click += new Microsoft.Office.Tools.Ribbon.RibbonControlEventHandler(this.Info_Click);
             // 
             // Redog
             // 
@@ -93,6 +103,7 @@
         internal Microsoft.Office.Tools.Ribbon.RibbonGroup group1;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Initialize;
         internal Microsoft.Office.Tools.Ribbon.RibbonButton Calculate;
+        internal Microsoft.Office.Tools.Ribbon.RibbonButton Info;
     }
 
     partial class ThisRibbonCollection
