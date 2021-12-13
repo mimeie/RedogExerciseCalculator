@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedogExerciseCalculator", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedogExerciseBusinessLogic", "RedogExerciseBusinessLogic\RedogExerciseBusinessLogic.csproj", "{3F0F463F-A037-4A2F-9C9D-FB1E7536A2CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RedogExerciseCalculatorTest", "RedogExerciseCalculatorTest\RedogExerciseCalculatorTest.csproj", "{681EC10F-24F2-42F8-8C57-A78AE1F202A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3F0F463F-A037-4A2F-9C9D-FB1E7536A2CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F0F463F-A037-4A2F-9C9D-FB1E7536A2CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F0F463F-A037-4A2F-9C9D-FB1E7536A2CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{681EC10F-24F2-42F8-8C57-A78AE1F202A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{681EC10F-24F2-42F8-8C57-A78AE1F202A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{681EC10F-24F2-42F8-8C57-A78AE1F202A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{681EC10F-24F2-42F8-8C57-A78AE1F202A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

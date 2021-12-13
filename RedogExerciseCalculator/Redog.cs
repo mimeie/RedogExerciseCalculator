@@ -168,6 +168,12 @@ namespace RedogExerciseCalculator
             }
 
             ExerciseCalculator ec = new ExerciseCalculator();
+            //foreach (string dog in ec.Execute())
+            //{
+            //    i++;
+            //    Excel.Range firstRow2 = activeWorksheet.get_Range("C" + i.ToString());
+            //    firstRow2.Value2 = dog;                             
+            //}
 
 
 
