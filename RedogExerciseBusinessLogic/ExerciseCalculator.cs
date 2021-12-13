@@ -21,6 +21,7 @@ namespace RedogExerciseBusinessLogic
 
             //Daten im Moment hier manuell abfüllen
             calcSetting.AnzahlFiguranten = 2;
+            calcSetting.AnzahlRundenDraussen = 2;
 
 
             addTeilnehmer("Michael", true);
@@ -42,19 +43,36 @@ namespace RedogExerciseBusinessLogic
 
         public void Execute()
         {
-            //alle HF sollen ablaufen
+            //alle HF einplanen
             int i = 0;
             foreach (Teilnehmer tn in teilnehmerList.Where(x => x.IsMitHund == true).ToList())
             {
                 i++;
                 Uebungsrunde runde = new Uebungsrunde();
                 runde.Order = i;
-                runde.Hundefuehrer = tn;
+                runde.Hundefuehrer = tn;                
 
                 uebungsplan.Add(runde);
             }
 
+            //mit Figuranten besetzen
+            for (int j = 1; j <= calcSetting.AnzahlFiguranten; j++)
+            {
+                //letzten Figurant laden für jeweilige Position
+                List<Teilnehmer> figuranten = new List<Teilnehmer>();
                 
+                foreach (Uebungsrunde runde in uebungsplan.ToList().OrderBy(x => x.Order))
+                {
+                    
+                }
+            }
+
+
+
+
+            //runde.Figuranten.Add(tn);
+
+
         }
     }
 }

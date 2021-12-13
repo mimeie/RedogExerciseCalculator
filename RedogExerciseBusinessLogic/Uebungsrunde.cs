@@ -8,8 +8,13 @@ namespace RedogExerciseBusinessLogic
 {
     public class Uebungsrunde
     {
+        public Uebungsrunde()
+         {
+            Figuranten = new List<Teilnehmer>();
+        }
+
         public int Order { get; set; }
         public Teilnehmer Hundefuehrer { get; set; }
-        //public List<Teilnehmer> Figuranten;
-    }
+        public List<Teilnehmer> Figuranten { get; set; }
+}
 }

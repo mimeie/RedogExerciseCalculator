@@ -10,5 +10,6 @@ namespace RedogExerciseBusinessLogic
     {
         public string Name { get; set; }
         public bool IsMitHund { get; set; }
+        public int FigurantenPlatz { get; set; }
     }
 }

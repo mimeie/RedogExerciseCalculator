@@ -9,5 +9,6 @@ namespace RedogExerciseBusinessLogic
     public class CalculatorSettings
     {
         public int AnzahlFiguranten { get; set; }
+        public int AnzahlRundenDraussen { get; set; }
     }
 }
