@@ -16,10 +16,15 @@ namespace RedogExerciseCalculator
 
         }
 
-        private void button1_Click(object sender, RibbonControlEventArgs e)
+        private void Initialize_Click(object sender, RibbonControlEventArgs e)
         {
             
-           MessageBox.Show(Class1.getTestresult());
+           
+        }
+
+        private void Calculate_Click(object sender, RibbonControlEventArgs e)
+        {
+            MessageBox.Show(Class1.getTestresult());
         }
     }
 }

@@ -167,6 +167,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="Redog.resx">
       <DependentUpon>Redog.cs</DependentUpon>
@@ -202,6 +203,15 @@
       <Project>{3f0f463f-a037-4a2f-9c9d-fb1e7536a2cd}</Project>
       <Name>RedogExerciseBusinessLogic</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="redogLogo.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="refresh.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="RedogHund.png" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
