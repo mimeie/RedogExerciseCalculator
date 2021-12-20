@@ -68,6 +68,7 @@ namespace RedogExerciseCalculatorTest
             ec.addTeilnehmer("Joli", true);
             ec.addTeilnehmer("Masha", true);
             ec.addTeilnehmer("Pascal", true);
+            ec.addTeilnehmer("Bettina", true);
             ec.addTeilnehmer("Stefan", false);
 
             ec.Execute();
@@ -83,7 +84,7 @@ namespace RedogExerciseCalculatorTest
                  
                 }
 
-                log.Info("Suche {0}, Hundeführer: {1}, Figuranten: {2}", runde.Order, runde.Hundefuehrer.Name, string.Join(", ", figurantenNamen.ToList()));
+                log.Info("Suche {0}, HF: {1}, Figuranten: {2}", runde.Order, runde.Hundefuehrer.Name, string.Join(", ", figurantenNamen.ToList()));
             }
         }
     }

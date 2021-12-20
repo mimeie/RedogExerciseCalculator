@@ -8,7 +8,7 @@ namespace RedogExerciseBusinessLogic
 {
     public class ExerciseCalculator
     {
-        public List<Teilnehmer> teilnehmerList;
+        public List<Teilnehmer> teilnehmerList;   
         public CalculatorSettings calcSetting;
         public List<Uebungsrunde> uebungsplan;
 
@@ -18,12 +18,6 @@ namespace RedogExerciseBusinessLogic
             teilnehmerList = new List<Teilnehmer>();
             uebungsplan = new List<Uebungsrunde>();
 
-
-           
-          
-
-
-            
 
         }
 
@@ -37,6 +31,9 @@ namespace RedogExerciseBusinessLogic
 
         public void Execute()
         {
+            //Teilnehmer Liste durchschütteln          
+            teilnehmerList = teilnehmerList.OrderBy(x => Guid.NewGuid()).ToList();
+
             //alle HF einplanen
             int i = 0;
             foreach (Teilnehmer tn in teilnehmerList.Where(x => x.IsMitHund == true).ToList())
