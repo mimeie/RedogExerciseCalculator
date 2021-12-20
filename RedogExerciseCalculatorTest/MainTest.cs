@@ -57,8 +57,8 @@ namespace RedogExerciseCalculatorTest
 
             ExerciseCalculator ec = new ExerciseCalculator();
 
-            ec.calcSetting.AnzahlFiguranten = 3;
-            ec.calcSetting.AnzahlRundenDraussen = 3;
+            ec.calcSetting.AnzahlFiguranten = 2;
+            ec.calcSetting.AnzahlRundenDraussen = 2;
             ec.calcSetting.AnzahlRundenDraussenKeinHF = 4;
 
             ec.addTeilnehmer("Michael", true,false);
