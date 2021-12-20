@@ -15,6 +15,7 @@ namespace RedogExerciseBusinessLogic
 
         public int Order { get; set; }
         public Teilnehmer Hundefuehrer { get; set; }
+        public Teilnehmer Mitte { get; set; }
         public List<Teilnehmer> Figuranten { get; set; }
 }
 }

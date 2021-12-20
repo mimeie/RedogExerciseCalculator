@@ -21,11 +21,12 @@ namespace RedogExerciseBusinessLogic
 
         }
 
-        public void addTeilnehmer(string name, bool isMitHund)
+        public void addTeilnehmer(string name, bool isMitHund, bool isMitte)
         {
             Teilnehmer tn = new Teilnehmer();
             tn.Name = name;
             tn.IsMitHund = isMitHund;
+            tn.IsMitte = isMitte;
             teilnehmerList.Add(tn);
         }
 
@@ -46,8 +47,21 @@ namespace RedogExerciseBusinessLogic
                 uebungsplan.Add(runde);
             }
 
-            //figurantenplätze besetzen
-            int figurantPlatz = 1;
+
+            //Mitte einplanen
+            List<Teilnehmer> mitteList = new List<Teilnehmer>();
+            mitteList = teilnehmerList.Where(y => y.IsMitte == true).ToList();
+            int mitteOrder;
+            foreach (Uebungsrunde runde in uebungsplan.ToList().OrderBy(x => x.Order))
+            {
+                //mitte geher abwechseln
+
+                runde.Mitte = mitteList.FirstOrDefault();
+
+            }
+
+                //figurantenplätze besetzen
+                int figurantPlatz = 1;
 
             foreach (Teilnehmer figurant in teilnehmerList)
             {
@@ -76,8 +90,15 @@ namespace RedogExerciseBusinessLogic
                     { 
                         figuranten.RemoveAll(x => x == uebungsplan.Where(y => y.Order == runde.Order + 1).FirstOrDefault().Hundefuehrer);
                     }
-                                                           
+
+                    //Dann momentan die Mitte komplett als Figuranten rauslöschen
                     
+                    foreach (Teilnehmer mitte in mitteList)
+                    { 
+                        figuranten.Remove(mitte);
+                    }
+
+
                     //rausfiltern wer schon oft genug war
                     foreach (Teilnehmer gewaehlterFigurant in figuranten.ToList())
                     {

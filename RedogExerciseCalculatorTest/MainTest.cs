@@ -60,16 +60,16 @@ namespace RedogExerciseCalculatorTest
             ec.calcSetting.AnzahlFiguranten = 2;
             ec.calcSetting.AnzahlRundenDraussen = 2;
 
-            ec.addTeilnehmer("Michael", true);
-            ec.addTeilnehmer("Sarah", true);
-            ec.addTeilnehmer("Tom", false);
-            ec.addTeilnehmer("Alain", true);
-            ec.addTeilnehmer("Clemens", true);
-            ec.addTeilnehmer("Joli", true);
-            ec.addTeilnehmer("Masha", true);
-            ec.addTeilnehmer("Pascal", true);
-            ec.addTeilnehmer("Bettina", true);
-            ec.addTeilnehmer("Stefan", false);
+            ec.addTeilnehmer("Michael", true,false);
+            ec.addTeilnehmer("Sarah", true, true);
+            ec.addTeilnehmer("Tom", false, false);
+            ec.addTeilnehmer("Alain", true, false);
+            ec.addTeilnehmer("Clemens", true, false);
+            ec.addTeilnehmer("Joli", true, true);
+            ec.addTeilnehmer("Masha", true, false);
+            ec.addTeilnehmer("Pascal", true, false);
+            ec.addTeilnehmer("Bettina", true, false);
+            ec.addTeilnehmer("Stefan", false, false);
 
             ec.Execute();
 
@@ -84,7 +84,7 @@ namespace RedogExerciseCalculatorTest
                  
                 }
 
-                log.Info("Suche {0}, HF: {1}, Figuranten: {2}", runde.Order, runde.Hundefuehrer.Name, string.Join(", ", figurantenNamen.ToList()));
+                log.Info("Suche {0}, HF: {1}, Mitte: {2}, Figuranten: {3}", runde.Order, runde.Hundefuehrer.Name,runde.Mitte.Name, string.Join(", ", figurantenNamen.ToList()));
             }
         }
     }
