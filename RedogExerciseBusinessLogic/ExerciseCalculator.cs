@@ -19,21 +19,15 @@ namespace RedogExerciseBusinessLogic
             uebungsplan = new List<Uebungsrunde>();
 
 
-            //Daten im Moment hier manuell abfüllen
-            calcSetting.AnzahlFiguranten = 2;
-            calcSetting.AnzahlRundenDraussen = 2;
+           
+          
 
 
-            addTeilnehmer("Michael", true);
-            addTeilnehmer("Sarah", true);
-            addTeilnehmer("Tom", false);
-            addTeilnehmer("Alain", true);
-            addTeilnehmer("Clemens", true);
-            addTeilnehmer("Joli", true);
+            
 
         }
 
-        private void addTeilnehmer(string name, bool isMitHund)
+        public void addTeilnehmer(string name, bool isMitHund)
         {
             Teilnehmer tn = new Teilnehmer();
             tn.Name = name;
@@ -55,22 +49,47 @@ namespace RedogExerciseBusinessLogic
                 uebungsplan.Add(runde);
             }
 
-            //mit Figuranten besetzen
-            for (int j = 1; j <= calcSetting.AnzahlFiguranten; j++)
+            //figurantenplätze besetzen
+            int figurantPlatz = 1;
+
+            foreach (Teilnehmer figurant in teilnehmerList)
             {
-                //letzten Figurant laden für jeweilige Position
-                List<Teilnehmer> figuranten = new List<Teilnehmer>();
+                if (figurantPlatz  > calcSetting.AnzahlFiguranten)
+                {
+                    figurantPlatz = 1;
+                }
+                figurant.FigurantenPlatz = figurantPlatz;
+
+                figurantPlatz++;
+            }
+
+            //mit der geforderten Anzahl Figuranten besetzen
+            for (figurantPlatz = 1; figurantPlatz <= calcSetting.AnzahlFiguranten; figurantPlatz++)
+            {
                 
+                List<Teilnehmer> figuranten = new List<Teilnehmer>();                
                 foreach (Uebungsrunde runde in uebungsplan.ToList().OrderBy(x => x.Order))
                 {
-                    
+                    //alle möglichen Figuranten laden 
+                    figuranten.AddRange(teilnehmerList.Where(x=> x.FigurantenPlatz == figurantPlatz).ToList());
+
+                    //Dann rausfiltern filtern (nicht der nächste HF, nicht der jetzige Hf)
+                    figuranten.RemoveAll(x => x == runde.Hundefuehrer);                    
+                    if (uebungsplan.Where(y => y.Order == runde.Order + 1).FirstOrDefault() != null)
+                    { 
+                        figuranten.RemoveAll(x => x == uebungsplan.Where(y => y.Order == runde.Order + 1).FirstOrDefault().Hundefuehrer);
+                    }
+
+                    //letzten Figurant laden für jeweilige Position
+                    runde.Figuranten.Add(figuranten.FirstOrDefault());
+
                 }
             }
 
 
 
 
-            //runde.Figuranten.Add(tn);
+            
 
 
         }
