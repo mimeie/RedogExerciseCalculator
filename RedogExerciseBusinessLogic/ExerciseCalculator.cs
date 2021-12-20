@@ -37,7 +37,7 @@ namespace RedogExerciseBusinessLogic
 
             //alle HF einplanen
             int i = 0;
-            foreach (Teilnehmer tn in teilnehmerList.Where(x => x.IsMitHund == true).ToList())
+            foreach (Teilnehmer tn in teilnehmerList.Where(x => x.IsMitHund == true).ToList().OrderBy(y => y.IsMitte))
             {
                 i++;
                 Uebungsrunde runde = new Uebungsrunde();
@@ -48,22 +48,41 @@ namespace RedogExerciseBusinessLogic
             }
 
 
-            //Mitte einplanen
+            //Mitte einplanen, gleichmässig aufteilen der Reihe nach
             List<Teilnehmer> mitteList = new List<Teilnehmer>();
             mitteList = teilnehmerList.Where(y => y.IsMitte == true).ToList();
-            int mitteOrder;
+            double wechselRunde = uebungsplan.Count / mitteList.Count;
+            wechselRunde = Math.Round(wechselRunde, 0);
+            int mitteOrder =1;
+            int mitteTeilnehmer = 0;
             foreach (Uebungsrunde runde in uebungsplan.ToList().OrderBy(x => x.Order))
             {
-                //mitte geher abwechseln
+                //mitte geher abwechseln gleichmässig, wenn HF und Mitte identisch, alternative laden (was noch verfügbar ist
+                if (runde.Hundefuehrer == mitteList.ElementAt(mitteTeilnehmer))
+                {
+                    List<Teilnehmer> mitteListAlternative = new List<Teilnehmer>();
+                    mitteListAlternative = teilnehmerList.Where(y => y.IsMitte == true).ToList();
+                    mitteListAlternative.Remove(mitteList.ElementAt(mitteTeilnehmer));
+                    runde.Mitte = mitteListAlternative.FirstOrDefault();
+                }
+                else
+                {
+                    runde.Mitte = mitteList.ElementAt(mitteTeilnehmer);
+                }                
+                mitteOrder++;
 
-                runde.Mitte = mitteList.FirstOrDefault();
+                if(mitteOrder >= wechselRunde && mitteTeilnehmer+1 < mitteList.Count)
+                {
+                    mitteTeilnehmer++;
+                    mitteOrder = 1;
+                }
 
             }
 
                 //figurantenplätze besetzen
                 int figurantPlatz = 1;
 
-            foreach (Teilnehmer figurant in teilnehmerList)
+            foreach (Teilnehmer figurant in teilnehmerList.OrderBy(x => x.IsMitHund))
             {
                 if (figurantPlatz  > calcSetting.AnzahlFiguranten)
                 {
@@ -77,27 +96,35 @@ namespace RedogExerciseBusinessLogic
             //mit der geforderten Anzahl Figuranten besetzen
             for (figurantPlatz = 1; figurantPlatz <= calcSetting.AnzahlFiguranten; figurantPlatz++)
             {
-                
-                List<Teilnehmer> figuranten = new List<Teilnehmer>();                
+
+                              
                 foreach (Uebungsrunde runde in uebungsplan.ToList().OrderBy(x => x.Order))
                 {
+                    List<Teilnehmer> figuranten = new List<Teilnehmer>();
+                    List<Teilnehmer> figurantenGeloeschtWegenMaxAnzahl = new List<Teilnehmer>();
+
                     //alle möglichen Figuranten laden 
                     figuranten.AddRange(teilnehmerList.Where(x=> x.FigurantenPlatz == figurantPlatz).ToList());
 
-                    //Dann rausfiltern filtern (nicht der nächste HF, nicht der jetzige Hf)
+                    //Dann rausfiltern filtern (nicht der nächste HF, nicht der jetzige Hf, nicht der vorherige HF)
                     figuranten.RemoveAll(x => x == runde.Hundefuehrer);                    
                     if (uebungsplan.Where(y => y.Order == runde.Order + 1).FirstOrDefault() != null)
                     { 
                         figuranten.RemoveAll(x => x == uebungsplan.Where(y => y.Order == runde.Order + 1).FirstOrDefault().Hundefuehrer);
                     }
-
-                    //Dann momentan die Mitte komplett als Figuranten rauslöschen
-                    
-                    foreach (Teilnehmer mitte in mitteList)
-                    { 
-                        figuranten.Remove(mitte);
+                    if (uebungsplan.Where(y => y.Order == runde.Order - 1).FirstOrDefault() != null)
+                    {
+                        figuranten.RemoveAll(x => x == uebungsplan.Where(y => y.Order == runde.Order - 1).FirstOrDefault().Hundefuehrer);
                     }
 
+                    //Dann momentan die Mitte komplett als Figuranten rauslöschen                    
+                    //foreach (Teilnehmer mitte in mitteList)
+                    //{ 
+                    //    figuranten.Remove(mitte);
+                    //}
+
+                    //den Mitte teilnehmer als Figurant löschen
+                    figuranten.Remove(runde.Mitte);
 
                     //rausfiltern wer schon oft genug war
                     foreach (Teilnehmer gewaehlterFigurant in figuranten.ToList())
@@ -111,15 +138,60 @@ namespace RedogExerciseBusinessLogic
                                 figurantFoundCounter++;
                             }
                         }
-                        if (figurantFoundCounter >= calcSetting.AnzahlRundenDraussen)
+
+                        int anzahlRundenMax;
+                        if (gewaehlterFigurant.IsMitHund == false) //Figuranten ohne Hund bleiben länger draussen
+                        {
+                            anzahlRundenMax = calcSetting.AnzahlRundenDraussenKeinHF;
+                        }
+                        else
+                        {
+                            anzahlRundenMax = calcSetting.AnzahlRundenDraussen;
+                        }
+
+                        if (figurantFoundCounter >= anzahlRundenMax)
                         {
                             //schon zu oft figurant
+                            figurantenGeloeschtWegenMaxAnzahl.Add(gewaehlterFigurant);
                             figuranten.RemoveAll(x => x == gewaehlterFigurant);
                         }
                     }
 
                     //Figurant laden für jeweilige Position
-                    runde.Figuranten.Add(figuranten.FirstOrDefault());
+                    if (figuranten.Count == 0) 
+                    {
+                        //nochmals jemanden nehmen der eigentlich die max anzahl erreicht hat
+                        figuranten.AddRange(figurantenGeloeschtWegenMaxAnzahl);
+                        runde.Info = runde.Info + " Figurant auf Platz " + figurantPlatz.ToString() + " liegt öfters als geplant";
+
+                        if (figuranten.Count == 0)
+                        {
+                            //in dem Fall wurde zuviel rausgelöscht, der nächste HF muss nochmals liegen
+                            if (uebungsplan.Where(y => y.Order == runde.Order + 1).FirstOrDefault() != null)
+                            {
+                                figuranten.Add(uebungsplan.Where(y => y.Order == runde.Order + 1).FirstOrDefault().Hundefuehrer);
+                                runde.Info = runde.Info + " Figurant kommt nachher sofort als HF dran";
+                            }
+                            else
+                            {
+                                //wenn es leider immer noch nicht ausreicht, den vorherigen HF  
+                                if (uebungsplan.Where(y => y.Order == runde.Order - 1).FirstOrDefault() != null)
+                                {
+                                    figuranten.Add(uebungsplan.Where(y => y.Order == runde.Order - 1).FirstOrDefault().Hundefuehrer);
+                                    runde.Info = runde.Info + " Figurant war vorher als HF dran";
+                                }
+                            }
+                        }
+                    }
+                    if (figuranten.Count > 0)
+                    {
+                        runde.Figuranten.Add(figuranten.OrderBy(x => x.IsMitHund).FirstOrDefault());
+                    }
+                    else
+                    {
+                        //error handling: Berechnung nicht möglich
+                        runde.Info = runde.Info + " Berechnung nicht möglich. Nicht genügend Figuranten in Figurant-Platz " + figurantPlatz.ToString();
+                    }
 
                 }
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace RedogExerciseBusinessLogic
 {
     public class Teilnehmer
@@ -12,5 +13,9 @@ namespace RedogExerciseBusinessLogic
         public bool IsMitHund { get; set; }
         public bool IsMitte { get; set; }
         public int FigurantenPlatz { get; set; }
+
+        public ConsoleColor TeilnehmerFarbe { get; set; }
+
+
     }
 }

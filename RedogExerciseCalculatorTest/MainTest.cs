@@ -57,8 +57,9 @@ namespace RedogExerciseCalculatorTest
 
             ExerciseCalculator ec = new ExerciseCalculator();
 
-            ec.calcSetting.AnzahlFiguranten = 2;
-            ec.calcSetting.AnzahlRundenDraussen = 2;
+            ec.calcSetting.AnzahlFiguranten = 3;
+            ec.calcSetting.AnzahlRundenDraussen = 3;
+            ec.calcSetting.AnzahlRundenDraussenKeinHF = 4;
 
             ec.addTeilnehmer("Michael", true,false);
             ec.addTeilnehmer("Sarah", true, true);
@@ -69,6 +70,7 @@ namespace RedogExerciseCalculatorTest
             ec.addTeilnehmer("Masha", true, false);
             ec.addTeilnehmer("Pascal", true, false);
             ec.addTeilnehmer("Bettina", true, false);
+            ec.addTeilnehmer("Duri", true, false);
             ec.addTeilnehmer("Stefan", false, false);
 
             ec.Execute();
@@ -84,7 +86,7 @@ namespace RedogExerciseCalculatorTest
                  
                 }
 
-                log.Info("Suche {0}, HF: {1}, Mitte: {2}, Figuranten: {3}", runde.Order, runde.Hundefuehrer.Name,runde.Mitte.Name, string.Join(", ", figurantenNamen.ToList()));
+                log.Info("Suche {0}, HF: {1}, Mitte: {2}, Figuranten: {3}, Info:{4}", runde.Order, runde.Hundefuehrer.Name,runde.Mitte.Name, string.Join(", ", figurantenNamen.ToList()),runde.Info);
             }
         }
     }
