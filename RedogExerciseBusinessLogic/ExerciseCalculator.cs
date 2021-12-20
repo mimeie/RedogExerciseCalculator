@@ -76,8 +76,28 @@ namespace RedogExerciseBusinessLogic
                     { 
                         figuranten.RemoveAll(x => x == uebungsplan.Where(y => y.Order == runde.Order + 1).FirstOrDefault().Hundefuehrer);
                     }
+                                                           
+                    
+                    //rausfiltern wer schon oft genug war
+                    foreach (Teilnehmer gewaehlterFigurant in figuranten.ToList())
+                    {
+                        int figurantFoundCounter = 0;
+                        //alle anderen Runden die schon zugewiesen wurden ohne diese
+                        foreach (Uebungsrunde andereRunde in uebungsplan.Where(x => x != runde && x.Figuranten.Count != 0).ToList().OrderBy(x => x.Order))
+                        {
+                            if (andereRunde.Figuranten.Contains(gewaehlterFigurant))
+                            {
+                                figurantFoundCounter++;
+                            }
+                        }
+                        if (figurantFoundCounter >= calcSetting.AnzahlRundenDraussen)
+                        {
+                            //schon zu oft figurant
+                            figuranten.RemoveAll(x => x == gewaehlterFigurant);
+                        }
+                    }
 
-                    //letzten Figurant laden für jeweilige Position
+                    //Figurant laden für jeweilige Position
                     runde.Figuranten.Add(figuranten.FirstOrDefault());
 
                 }
