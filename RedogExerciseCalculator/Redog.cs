@@ -65,7 +65,13 @@ namespace RedogExerciseCalculator
             int i = 1;
 
             range  = konfiguration.get_Range("A1");
-            range.Value2 = "Basis-Einstellungen:";
+            range.Value2 = "Basis-Einstellungen";
+            range.Font.Bold = true;
+            range = konfiguration.get_Range("B" + i.ToString());
+            range.Value2 = "Wert";
+            range.Font.Bold = true;
+            range = konfiguration.get_Range("C" + i.ToString());
+            range.Value2 = "Hinweis/Bemerkung";
             range.Font.Bold = true;
 
             i++;
@@ -73,18 +79,32 @@ namespace RedogExerciseCalculator
             range.Value2 = "Anzahl Figuranten";
             range = konfiguration.get_Range("B" + i.ToString());
             range.Value2 = "2";
+            range = konfiguration.get_Range("C" + i.ToString());
+            range.Value2 = "Eingesetzte Figuranten bei einer Suche";
 
             i++;
             range = konfiguration.get_Range("A" + i.ToString());
             range.Value2 = "Anzahl Runden draussen als Figurant";
             range = konfiguration.get_Range("B" + i.ToString());
             range.Value2 = "2";
+            range = konfiguration.get_Range("C" + i.ToString());
+            range.Value2 = "Wird bei Figurantenmangel ignoriert";
 
             i++;
             range = konfiguration.get_Range("A" + i.ToString());
             range.Value2 = "Anzahl Runden draussen als Figurant (kein HF)";
             range = konfiguration.get_Range("B" + i.ToString());
             range.Value2 = "4";
+            range = konfiguration.get_Range("C" + i.ToString());
+            range.Value2 = "Wird bei Figurantenmangel ignoriert";
+
+            i++;
+            range = konfiguration.get_Range("A" + i.ToString());
+            range.Value2 = "Konfiguration Mitte";
+            range = konfiguration.get_Range("B" + i.ToString());
+            range.Value2 = "1";
+            range = konfiguration.get_Range("C" + i.ToString());
+            range.Value2 = "0: Keine Mitte, 1: Mitte-Läufe am Stück, 2: Mitte abwechselnd";
 
 
             //Teilnehmer/Hundeführer abfüllen
@@ -113,8 +133,11 @@ namespace RedogExerciseCalculator
             addTeilnehmer("Stefan", "", "", i++);
 
             //breite setzen, funktioniert noch nicht
-            double width = ((Excel.Range)konfiguration.Cells[1, 1]).Width;
-            ((Excel.Range)konfiguration.Cells[1, 1]).ColumnWidth = width + 10;            
+            double width;
+            width = ((Excel.Range)konfiguration.Cells[1, 1]).Width;
+            ((Excel.Range)konfiguration.Cells[1, 1]).ColumnWidth = width;
+            width = ((Excel.Range)konfiguration.Cells[1, 3]).Width;
+            ((Excel.Range)konfiguration.Cells[1, 3]).ColumnWidth = width + 15;
         }
 
 
