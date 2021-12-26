@@ -72,7 +72,19 @@ namespace RedogExerciseCalculator
             range = konfiguration.get_Range("A" + i.ToString());
             range.Value2 = "Anzahl Figuranten";
             range = konfiguration.get_Range("B" + i.ToString());
-            range.Value2 = "1";
+            range.Value2 = "2";
+
+            i++;
+            range = konfiguration.get_Range("A" + i.ToString());
+            range.Value2 = "Anzahl Runden draussen als Figurant";
+            range = konfiguration.get_Range("B" + i.ToString());
+            range.Value2 = "2";
+
+            i++;
+            range = konfiguration.get_Range("A" + i.ToString());
+            range.Value2 = "Anzahl Runden draussen als Figurant (kein HF)";
+            range = konfiguration.get_Range("B" + i.ToString());
+            range.Value2 = "4";
 
 
             //Teilnehmer/Hundeführer abfüllen
@@ -83,43 +95,39 @@ namespace RedogExerciseCalculator
             range = konfiguration.get_Range("B" + i.ToString());
             range.Value2 = "mit Hund";
             range.Font.Bold = true;
+            range = konfiguration.get_Range("C" + i.ToString());
+            range.Value2 = "Mitte";
+            range.Font.Bold = true;
+            i = 11;
+            
+            addTeilnehmer("Joli", "x", "x", i++);
+            addTeilnehmer("Sarah", "x", "x", i++);
+            addTeilnehmer("Tom", "x", "", i++);
+            addTeilnehmer("Alain", "x", "", i++);
+            addTeilnehmer("Clemens", "x", "", i++);
+            addTeilnehmer("Masha", "x", "", i++);
+            addTeilnehmer("Alain", "x", "", i++);
+            addTeilnehmer("Bettina", "x", "", i++);
+            addTeilnehmer("Pascal", "x", "", i++);
+            addTeilnehmer("Tom", "", "", i++);
+            addTeilnehmer("Stefan", "", "", i++);
+
+            //breite setzen, funktioniert noch nicht
+            double width = ((Excel.Range)konfiguration.Cells[1, 1]).Width;
+            ((Excel.Range)konfiguration.Cells[1, 1]).ColumnWidth = width + 10;            
+        }
 
 
-            i++;
+        private void addTeilnehmer(string name, string isMitHund, string isMitte, int i)
+        {
+            Excel.Range range;
+
             range = konfiguration.get_Range("A" + i.ToString());
-            range.Value2 = "Michael";
+            range.Value2 = name;
             range = konfiguration.get_Range("B" + i.ToString());
-            range.Value2 = "x";
-
-            i++;
-            range = konfiguration.get_Range("A" + i.ToString());
-            range.Value2 = "Alain";
-            range = konfiguration.get_Range("B" + i.ToString());
-            range.Value2 = "x";
-
-            i++;
-            range = konfiguration.get_Range("A" + i.ToString());
-            range.Value2 = "Tom";
-            range = konfiguration.get_Range("B" + i.ToString());
-            range.Value2 = "";
-
-            i++;
-            range = konfiguration.get_Range("A" + i.ToString());
-            range.Value2 = "Sarah";
-            range = konfiguration.get_Range("B" + i.ToString());
-            range.Value2 = "x";
-
-            i++;
-            range = konfiguration.get_Range("A" + i.ToString());
-            range.Value2 = "Clemens";
-            range = konfiguration.get_Range("B" + i.ToString());
-            range.Value2 = "x";
-
-            i++;
-            range = konfiguration.get_Range("A" + i.ToString());
-            range.Value2 = "Duri";
-            range = konfiguration.get_Range("B" + i.ToString());
-            range.Value2 = "x";
+            range.Value2 = isMitHund;
+            range = konfiguration.get_Range("C" + i.ToString());
+            range.Value2 = isMitte;
         }
 
         //private void DisplayActiveSheetName()
@@ -130,9 +138,9 @@ namespace RedogExerciseCalculator
         //}
 
 
-//        xlWorkSheet = (Worksheet) xlWorkBook.Worksheets["Dashboard"];
-//        range = xlWorkSheet.Cells[1, 1];
-//range.Value2 = "Test";
+        //        xlWorkSheet = (Worksheet) xlWorkBook.Worksheets["Dashboard"];
+        //        range = xlWorkSheet.Cells[1, 1];
+        //range.Value2 = "Test";
 
 
         private void Calculate_Click(object sender, RibbonControlEventArgs e)
