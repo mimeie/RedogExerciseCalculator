@@ -210,6 +210,7 @@ namespace RedogExerciseCalculator
         {
             Info info = new Info();
             info.ShowDialog();
+
         }
     }
 }
