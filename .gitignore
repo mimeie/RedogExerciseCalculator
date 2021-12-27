@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Deployment/Microsoft.Office.Tools.Common.v4.0.Utilities.dll
+/Deployment/NLog.dll
+/Deployment/RedogExerciseBusinessLogic.dll
+/Deployment/RedogExerciseCalculator.dll
+/Deployment/RedogExerciseCalculator.dll.manifest
+/Deployment/RedogExerciseCalculator.vsto
