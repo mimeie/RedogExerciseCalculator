@@ -12,6 +12,7 @@ namespace RedogExerciseBusinessLogic
         public string Name { get; set; }
         public bool IsMitHund { get; set; }
         public bool IsMitte { get; set; }
+        public bool IsSpezialprogrammAnfang { get; set; }
         public int FigurantenPlatz { get; set; }
 
         public ConsoleColor TeilnehmerFarbe { get; set; }

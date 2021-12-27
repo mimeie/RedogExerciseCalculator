@@ -31,10 +31,10 @@ namespace RedogExerciseCalculator
 
         private void Initialize_Click(object sender, RibbonControlEventArgs e)
         {
-            window = e.Control.Context;          
-           
+            window = e.Control.Context;
 
-            
+
+
             //Konfig sheet anlegen
             try
             {
@@ -65,7 +65,7 @@ namespace RedogExerciseCalculator
             Excel.Range range;
             int i = 1;
 
-            range  = konfiguration.get_Range("A1");
+            range = konfiguration.get_Range("A1");
             range.Value2 = "Basis-Einstellungen";
             range.Font.Bold = true;
             range = konfiguration.get_Range("B" + i.ToString());
@@ -103,13 +103,13 @@ namespace RedogExerciseCalculator
             range = konfiguration.get_Range("A" + i.ToString());
             range.Value2 = "Konfiguration Mitte";
             range = konfiguration.get_Range("B" + i.ToString());
-            range.Value2 = "1";
+            range.Value2 = "2";
             range = konfiguration.get_Range("C" + i.ToString());
-            range.Value2 = "(nicht implementiert) 0: Keine Mitte, 1: Mitte-Läufe am Stück, 2: Mitte abwechselnd";
+            range.Value2 = "0: Keine Mitte, 1: Mitte-Läufe am Stück, 2: Mitte abwechselnd";
 
 
             //Teilnehmer/Hundeführer abfüllen
-            i = 10;           
+            i = 10;
             range = konfiguration.get_Range("A" + i.ToString());
             range.Value2 = "Teilnehmer";
             range.Font.Bold = true;
@@ -119,30 +119,42 @@ namespace RedogExerciseCalculator
             range = konfiguration.get_Range("C" + i.ToString());
             range.Value2 = "Mitte";
             range.Font.Bold = true;
+            range = konfiguration.get_Range("D" + i.ToString());
+            range.Value2 = "Spezialprogramm Anfang";
+            range.Font.Bold = true;
             i = 11;
-            
-            addTeilnehmer("Joli", "x", "x", i++);
-            addTeilnehmer("Sarah", "x", "x", i++);
-            addTeilnehmer("Tom", "x", "", i++);
-            addTeilnehmer("Alain", "x", "", i++);
-            addTeilnehmer("Clemens", "x", "", i++);
-            addTeilnehmer("Masha", "x", "", i++);
-            addTeilnehmer("Alain", "x", "", i++);
-            addTeilnehmer("Bettina", "x", "", i++);
-            addTeilnehmer("Pascal", "x", "", i++);
-            addTeilnehmer("Tom", "", "", i++);
-            addTeilnehmer("Stefan", "", "", i++);
 
-            //breite setzen, funktioniert noch nicht
-            double width;
-            width = ((Excel.Range)konfiguration.Cells[1, 1]).Width;
-            ((Excel.Range)konfiguration.Cells[1, 1]).ColumnWidth = width;
-            width = ((Excel.Range)konfiguration.Cells[1, 3]).Width;
-            ((Excel.Range)konfiguration.Cells[1, 3]).ColumnWidth = width + 15;
+            addTeilnehmer("Joli", "x", "x", "", i++);
+            addTeilnehmer("Sarah", "x", "x", "", i++);
+            addTeilnehmer("Alain", "x", "", "", i++);
+            addTeilnehmer("Clemens", "x", "", "", i++);
+            addTeilnehmer("Masha", "x", "", "x", i++);
+            addTeilnehmer("Michael", "x", "", "", i++);
+            addTeilnehmer("Alain", "x", "", "", i++);
+            addTeilnehmer("Bettina", "x", "", "x", i++);
+            addTeilnehmer("Pascal", "x", "", "", i++);
+            addTeilnehmer("Tom", "", "", "", i++);
+            addTeilnehmer("Stefan", "", "", "", i++);
+
+            //breite setzen, funktioniert nur so halb
+            try
+            {
+                double width;
+                width = ((Excel.Range)konfiguration.Cells[1, 1]).Width;
+                ((Excel.Range)konfiguration.Cells[1, 1]).ColumnWidth = width;
+                width = ((Excel.Range)konfiguration.Cells[1, 3]).Width;
+                ((Excel.Range)konfiguration.Cells[1, 3]).ColumnWidth = width + 15;
+            }
+            catch (Exception ex)
+            {
+                //worksheet neu eröffnen
+                logger.Warn(ex, $"Fehler beim Breite setzen");
+            }
+
         }
 
 
-        private void addTeilnehmer(string name, string isMitHund, string isMitte, int i)
+        private void addTeilnehmer(string name, string isMitHund, string isMitte,string isSpezialprogrammAnfang, int i)
         {
             Excel.Range range;
 
@@ -152,19 +164,11 @@ namespace RedogExerciseCalculator
             range.Value2 = isMitHund;
             range = konfiguration.get_Range("C" + i.ToString());
             range.Value2 = isMitte;
+            range = konfiguration.get_Range("D" + i.ToString());
+            range.Value2 = isSpezialprogrammAnfang;
         }
 
-        //private void DisplayActiveSheetName()
-        //{
-        //    Excel.Worksheet worksheet1 = (Excel.Worksheet)this.ActiveSheet;
-        //    MessageBox.Show("The name of the active sheet is: " +
-        //        worksheet1.Name);
-        //}
 
-
-        //        xlWorkSheet = (Worksheet) xlWorkBook.Worksheets["Dashboard"];
-        //        range = xlWorkSheet.Cells[1, 1];
-        //range.Value2 = "Test";
 
         private void getConfigToBusinessLogic()
         {
@@ -176,7 +180,7 @@ namespace RedogExerciseCalculator
             {
                 //worksheet neu eröffnen
                 logger.Warn(ex, $"Problem beim Initalisieren, vermutlich existiert Sheet noch nicht.");
-                MessageBox.Show("Übung kann nicht berechnet werden. Konfiguration nicht gefunden.","Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Übung kann nicht berechnet werden. Konfiguration nicht gefunden.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -206,20 +210,23 @@ namespace RedogExerciseCalculator
                     string name;
                     string isMitHund;
                     string isMitte;
+                    string isSpezialprogrammAnfang;
 
                     range = konfiguration.get_Range("A" + i.ToString());
                     name = range.Value2;
                     range = konfiguration.get_Range("B" + i.ToString());
                     isMitHund = range.Value2;
                     range = konfiguration.get_Range("C" + i.ToString());
-                    isMitte=  range.Value2;
+                    isMitte = range.Value2;
+                    range = konfiguration.get_Range("D" + i.ToString());
+                    isSpezialprogrammAnfang = range.Value2;
 
                     if (name != null)
-                    { 
-                        ec.addTeilnehmer(name, isMitHund, isMitte);
+                    {
+                        ec.addTeilnehmer(name, isMitHund, isMitte, isSpezialprogrammAnfang);
                     }
                 }
-               
+
 
             }
             catch (Exception ex)
@@ -230,18 +237,20 @@ namespace RedogExerciseCalculator
                 return;
             }
 
-            
-                                 
 
-            
-            
+
+
+
+
 
         }
 
 
         private void Calculate_Click(object sender, RibbonControlEventArgs e)
         {
-                       
+
+            ec.Initialize();
+
             window = e.Control.Context;
 
 
@@ -249,6 +258,7 @@ namespace RedogExerciseCalculator
             getConfigToBusinessLogic();
 
             //überflüssige Tabelle löschen
+
             try
             {
                 var uebungsplan = (Excel.Worksheet)window.Application.Worksheets["Übungsplan"].Delete();
@@ -263,46 +273,104 @@ namespace RedogExerciseCalculator
             try
             {
                 uebung = (Excel.Worksheet)window.Application.Worksheets["Übungsplan"];
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+                //worksheet neu eröffnen, weiss nicht wie es besser geht
+                logger.Warn(ex, $"Problem beim Berechnen, vermutlich existiert Sheet noch nicht.");
+                uebung = (Excel.Worksheet)window.Application.Worksheets.Add();
+                uebung.Name = "Übungsplan";
+
+                ec.Execute();
+
+                Excel.Range range;
+                int i = 1;
+
+                range = uebung.get_Range("A" + i.ToString());
+                range.Value2 = "Übungsplan";
+                range.Font.Bold = true;
+                range.Font.Size = 14;
+                i = 3;
+
+                range = uebung.get_Range("A" + i.ToString());
+                range.Value2 = "Runde";
+                range.Font.Bold = true;
+                range = uebung.get_Range("B" + i.ToString());
+                range.Value2 = "Zeit";
+                range.Font.Bold = true;
+                range = uebung.get_Range("C" + i.ToString());
+                range.Value2 = "Hundeführer";
+                range.Font.Bold = true;
+                range = uebung.get_Range("D" + i.ToString());
+                range.Value2 = "Mitte";
+                range.Font.Bold = true;
+                range = uebung.get_Range("E" + i.ToString());
+                range.Value2 = "Figuranten";
+                range.Font.Bold = true;
+                range = uebung.get_Range("F" + i.ToString());
+                range.Value2 = "Infos";
+                range.Font.Bold = true;
+
+
+
+
+                foreach (Uebungsrunde runde in ec.uebungsplan.ToList().OrderBy(x => x.Order))
+                {
+                    i++;
+                    List<string> figurantenNamen = new List<string>();
+                    foreach (Teilnehmer figurant in runde.Figuranten.OrderBy(x => x.FigurantenPlatz))
+                    {
+                        figurantenNamen.Add(figurant.FigurantenPlatz.ToString() + ") " + figurant.Name);
+                    }
+
+                    List<string> infoTexte = new List<string>();
+                    foreach (string info in runde.Infos)
+                    {
+                        infoTexte.Add(info);
+                    }
+
+                    range = uebung.get_Range("A" + i.ToString());
+                    range.Value2 = runde.Order.ToString();
+                    range = uebung.get_Range("B" + i.ToString());
+                    range.Value2 = "";
+                    range = uebung.get_Range("C" + i.ToString());
+                    range.Value2 = runde.Hundefuehrer.Name;
+                    range = uebung.get_Range("D" + i.ToString());
+                    if (runde.Mitte != null)
+                    {
+                        range.Value2 = runde.Mitte.Name;
+                    }
+                    range = uebung.get_Range("E" + i.ToString());
+                    range.Value2 = string.Join(", ", figurantenNamen.ToList());
+                    range = uebung.get_Range("F" + i.ToString());
+                    range.Value2 = string.Join(", ", infoTexte.ToList());
+
+
+                    //log.Info("Suche {0}, HF: {1}, Mitte: {2}, Figuranten: {3}, Info:{4}", runde.Order, runde.Hundefuehrer.Name, runde.Mitte.Name, string.Join(", ", figurantenNamen.ToList()), runde.Info);
+                }
+
+
+            }
+
+            //breite setzen, funktioniert nur so halb
+            try
+            {
+                double width;
+                width = ((Excel.Range)uebung.Cells[1, 5]).Width;
+                ((Excel.Range)uebung.Cells[1, 5]).ColumnWidth = width;
+
             }
             catch (Exception ex)
             {
                 //worksheet neu eröffnen
-                logger.Warn(ex, $"Problem beim Berechnen, vermutlich existiert Sheet noch nicht.");
-                uebung = (Excel.Worksheet)window.Application.Worksheets.Add();
-                uebung.Name = "Übungsplan";
+                logger.Warn(ex, $"Fehler beim Breite setzen");
             }
 
-            ec.Execute();
-
-            
-            //foreach (string dog in ec.Execute())
-            //{
-            //    i++;
-            //    Excel.Range firstRow2 = activeWorksheet.get_Range("C" + i.ToString());
-            //    firstRow2.Value2 = dog;                             
-            //}
-
-
-
-            //Excel.Worksheet activeWorksheet = ((Excel.Worksheet)window.Application.ActiveSheet);
-
-            //foreach (string dog in ec.Execute())
-            //{
-
-            //    Excel.Range firstRow = activeWorksheet.get_Range("A1");
-            //    firstRow.EntireRow.Insert(Excel.XlInsertShiftDirection.xlShiftDown);
-            //    Excel.Range newFirstRow = activeWorksheet.get_Range("A1");
-            //    newFirstRow.Value2 = dog;
-
-            //}
-
-            //int i = 0;
-            //foreach (string dog in ec.Execute())
-            //{
-            //    i++;
-            //    Excel.Range firstRow2 = activeWorksheet.get_Range("C" + i.ToString());
-            //    firstRow2.Value2 = dog;                             
-            //}
         }
 
         private void Info_Click(object sender, RibbonControlEventArgs e)
