@@ -46,6 +46,7 @@
     </Compile>
     <Compile Include="CalculatorSettings.cs" />
     <Compile Include="ExerciseCalculator.cs" />
+    <Compile Include="KonfigurationMitte.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Teilnehmer.cs" />
     <Compile Include="Uebungsrunde.cs" />

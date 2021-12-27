@@ -11,5 +11,6 @@ namespace RedogExerciseBusinessLogic
         public int AnzahlFiguranten { get; set; }
         public int AnzahlRundenDraussen { get; set; }
         public int AnzahlRundenDraussenKeinHF { get; set; }
+        public KonfigurationMitte KonfigurationMitte { get; set; }
     }
 }

@@ -168,6 +168,73 @@ namespace RedogExerciseCalculator
 
         private void getConfigToBusinessLogic()
         {
+            try
+            {
+                konfiguration = (Excel.Worksheet)window.Application.Worksheets["Konfiguration"];
+            }
+            catch (Exception ex)
+            {
+                //worksheet neu eröffnen
+                logger.Warn(ex, $"Problem beim Initalisieren, vermutlich existiert Sheet noch nicht.");
+                MessageBox.Show("Übung kann nicht berechnet werden. Konfiguration nicht gefunden.","Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
+            //basis Settings laden
+
+            Excel.Range range;
+
+            try
+            {
+                //basis konfig laden
+                range = konfiguration.get_Range("B2");
+                ec.calcSetting.AnzahlFiguranten = (int)range.Value2;
+
+                range = konfiguration.get_Range("B3");
+                ec.calcSetting.AnzahlRundenDraussen = (int)range.Value2;
+
+                range = konfiguration.get_Range("B4");
+                ec.calcSetting.AnzahlRundenDraussenKeinHF = (int)range.Value2;
+
+                range = konfiguration.get_Range("B5");
+                ec.calcSetting.KonfigurationMitte = (KonfigurationMitte)range.Value2;
+
+                //teilnehmer ab Zeile 11 durchladen, einfach fix für 100 HF
+                for (int i = 11; i < 100; i++)
+                {
+                    string name;
+                    string isMitHund;
+                    string isMitte;
+
+                    range = konfiguration.get_Range("A" + i.ToString());
+                    name = range.Value2;
+                    range = konfiguration.get_Range("B" + i.ToString());
+                    isMitHund = range.Value2;
+                    range = konfiguration.get_Range("C" + i.ToString());
+                    isMitte=  range.Value2;
+
+                    if (name != null)
+                    { 
+                        ec.addTeilnehmer(name, isMitHund, isMitte);
+                    }
+                }
+               
+
+            }
+            catch (Exception ex)
+            {
+                //worksheet neu eröffnen
+                logger.Warn(ex, $"Problem beim laden der Konfiguration. Vermutlich ist die Konfiguration nicht lesbar.");
+                MessageBox.Show("Problem beim laden der Konfiguration. Vermutlich ist die Konfiguration nicht lesbar.", "Fehler", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            
+                                 
+
+            
+            
 
         }
 
@@ -204,6 +271,8 @@ namespace RedogExerciseCalculator
                 uebung = (Excel.Worksheet)window.Application.Worksheets.Add();
                 uebung.Name = "Übungsplan";
             }
+
+            ec.Execute();
 
             
             //foreach (string dog in ec.Execute())

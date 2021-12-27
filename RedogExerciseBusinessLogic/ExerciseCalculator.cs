@@ -77,6 +77,7 @@ namespace RedogExerciseBusinessLogic
             int mitteTeilnehmer = 0;
             foreach (Uebungsrunde runde in uebungsplan.ToList().OrderBy(x => x.Order))
             {
+                //TODO: Mitte Konfig anhand Enum
                 //mitte geher abwechseln gleichmässig, wenn HF und Mitte identisch, alternative laden (was noch verfügbar ist
                 if (runde.Hundefuehrer == mitteList.ElementAt(mitteTeilnehmer))
                 {
