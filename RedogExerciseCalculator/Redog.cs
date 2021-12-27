@@ -33,8 +33,6 @@ namespace RedogExerciseCalculator
         {
             window = e.Control.Context;
 
-
-
             //Konfig sheet anlegen
             try
             {
