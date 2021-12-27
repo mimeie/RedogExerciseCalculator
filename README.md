@@ -1,6 +1,5 @@
 # RedogExerciseCalculator
-Kalkulationsprogramm für Redog Übungen um Hunde und Figuranten einzuplanen
-Pilotprojekt Redog Regionalgruppe Ostschweiz
+Kalkulationsprogramm für Redog Übungen um Hunde und Figuranten einzuplanen. Pilotprojekt der Redog Regionalgruppe Ostschweiz
 
 # Installation & Nutzung
 Voraussetzung: Benötigt eine aktuelle Excel Version (mindestens 2013)
