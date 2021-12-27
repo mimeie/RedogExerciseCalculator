@@ -30,6 +30,26 @@ namespace RedogExerciseBusinessLogic
             teilnehmerList.Add(tn);
         }
 
+        public void addTeilnehmer(string name, string isMitHund, string isMitte)
+        {
+
+            bool isMitHundLocal = false;
+            bool isMitteLocal = false;
+
+            if (isMitHund == "x")
+            {
+                isMitHundLocal = true;
+            }
+
+            if (isMitte == "x")
+            {
+                isMitteLocal = true;
+            }
+
+            addTeilnehmer(name, isMitHundLocal, isMitteLocal);
+           
+        }
+
         public void Execute()
         {
             //Teilnehmer Liste durchschütteln          

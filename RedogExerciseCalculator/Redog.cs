@@ -22,10 +22,11 @@ namespace RedogExerciseCalculator
         Excel.Window window;
         Excel.Worksheet konfiguration;
         Excel.Worksheet uebung;
+        ExerciseCalculator ec;
 
         private void Redog_Load(object sender, RibbonUIEventArgs e)
         {
-
+            ec = new ExerciseCalculator();
         }
 
         private void Initialize_Click(object sender, RibbonControlEventArgs e)
@@ -104,7 +105,7 @@ namespace RedogExerciseCalculator
             range = konfiguration.get_Range("B" + i.ToString());
             range.Value2 = "1";
             range = konfiguration.get_Range("C" + i.ToString());
-            range.Value2 = "0: Keine Mitte, 1: Mitte-Läufe am Stück, 2: Mitte abwechselnd";
+            range.Value2 = "(nicht implementiert) 0: Keine Mitte, 1: Mitte-Läufe am Stück, 2: Mitte abwechselnd";
 
 
             //Teilnehmer/Hundeführer abfüllen
@@ -165,14 +166,20 @@ namespace RedogExerciseCalculator
         //        range = xlWorkSheet.Cells[1, 1];
         //range.Value2 = "Test";
 
+        private void getConfigToBusinessLogic()
+        {
+
+        }
+
 
         private void Calculate_Click(object sender, RibbonControlEventArgs e)
         {
-
-
-
-            
+                       
             window = e.Control.Context;
+
+
+            //Konfiguration auslesen
+            getConfigToBusinessLogic();
 
             //überflüssige Tabelle löschen
             try
@@ -198,7 +205,7 @@ namespace RedogExerciseCalculator
                 uebung.Name = "Übungsplan";
             }
 
-            ExerciseCalculator ec = new ExerciseCalculator();
+            
             //foreach (string dog in ec.Execute())
             //{
             //    i++;
