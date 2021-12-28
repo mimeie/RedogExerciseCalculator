@@ -368,3 +368,5 @@ FodyWeavers.xsd
 /Deployment/RedogExerciseCalculator.dll.manifest
 /Deployment/RedogExerciseCalculator.vsto
 /Deployment/RedogExerciseCalculator_v1.0.1.zip
+/DeploymentSetup/RedogExerciseCalculatorSetup.msi
+/DeploymentSetup/setup.exe
