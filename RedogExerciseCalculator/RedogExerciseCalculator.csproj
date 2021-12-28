@@ -289,7 +289,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>del ..\Deployment\*.pdb
-del ..\Deployment\*.xml</PostBuildEvent>
+    <PostBuildEvent>if $(ConfigurationName) == Release del ..\Deployment\*.pdb
+if $(ConfigurationName) == Release del ..\Deployment\*.xml</PostBuildEvent>
   </PropertyGroup>
 </Project>
