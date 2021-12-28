@@ -5,11 +5,10 @@ Kalkulationsprogramm für Redog Übungen um Hunde und Figuranten einzuplanen. Pi
 Voraussetzung: Benötigt eine aktuelle Excel Version (mindestens 2013)
 
 1. Installations-Datei der aktuellsten Version [herunterladen](https://github.com/mimeie/RedogExerciseCalculator/releases/latest)<br/>![](https://github.com/mimeie/RedogExerciseCalculator/blob/master/Dokumentation/ReleaseScreenshot.png)
-2. Heruntergeladene ZIP-Datei entpacken<br/>![](https://github.com/mimeie/RedogExerciseCalculator/blob/master/Dokumentation/Zip-Image.png)
-4. Datei "RedogExerciseCalculator.vsto" ausführen<br/>![](https://github.com/mimeie/RedogExerciseCalculator/blob/master/Dokumentation/VSTO-Click.png)
-5. Installation bestätigen<br/>![](https://github.com/mimeie/RedogExerciseCalculator/blob/master/Dokumentation/AddIn-Installation.png)
-6. Excel öffnen, Ein "Redog" Ribbon erscheint<br/>![](https://github.com/mimeie/RedogExerciseCalculator/blob/master/Dokumentation/ExcelRibbon.png)
-7. Verwendung nach Anweisung des Programms (1. Initialisierung, 2. Berechnung so oft wie nötig anhand der Konfiguration ausführen)
+2. Heruntergeladene Datei ausführen und installieren (Standardeinstellungen belassen)<br/>![](https://github.com/mimeie/RedogExerciseCalculator/blob/master/Dokumentation/addin-setup.png)
+3. Benutzerkontensteuerung bestätigen<br/>![](https://github.com/mimeie/RedogExerciseCalculator/blob/master/Dokumentation/uac-allow.png)
+4. Excel öffnen, Ein "Redog" Ribbon erscheint<br/>![](https://github.com/mimeie/RedogExerciseCalculator/blob/master/Dokumentation/ExcelRibbon.png)
+5. Verwendung nach Anweisung des Programms (1. Initialisierung, 2. Berechnung so oft wie nötig anhand der Konfiguration ausführen)
 
 
 
