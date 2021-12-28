@@ -4,7 +4,7 @@ Kalkulationsprogramm für Redog Übungen um Hunde und Figuranten einzuplanen. Pi
 # Installation & Nutzung
 Voraussetzung: Benötigt eine aktuelle Excel Version (mindestens 2013)
 
-1. ZIP-Datei der aktuellsten Version [herunterladen](https://github.com/mimeie/RedogExerciseCalculator/releases/latest)<br/>![](https://github.com/mimeie/RedogExerciseCalculator/blob/master/Dokumentation/ReleaseScreenshot.png)
+1. Installations-Datei der aktuellsten Version [herunterladen](https://github.com/mimeie/RedogExerciseCalculator/releases/latest)<br/>![](https://github.com/mimeie/RedogExerciseCalculator/blob/master/Dokumentation/ReleaseScreenshot.png)
 2. Heruntergeladene ZIP-Datei entpacken<br/>![](https://github.com/mimeie/RedogExerciseCalculator/blob/master/Dokumentation/Zip-Image.png)
 4. Datei "RedogExerciseCalculator.vsto" ausführen<br/>![](https://github.com/mimeie/RedogExerciseCalculator/blob/master/Dokumentation/VSTO-Click.png)
 5. Installation bestätigen<br/>![](https://github.com/mimeie/RedogExerciseCalculator/blob/master/Dokumentation/AddIn-Installation.png)
